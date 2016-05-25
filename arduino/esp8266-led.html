@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Kontrola LED przez ESP8266</title>
+    </head>
+    <body>
+    
+    <!-- Atrybut ID zawiera wartość do wysłania do Arduino -->
+    
+    <button id="11" class="led">Zmiana pinu 11</button> <!-- przycisk dla pinu 11 -->
+    <button id="12" class="led">Zmiana pinu 12</button> <!-- przycisk dla pinu 12 -->
+    <button id="13" class="led">Zmiana pinu 13</button> <!-- przycisk dla pinu 13 -->
+        
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".led").click(function(){
+                var p = $(this).attr('id'); // pobranie wartości (dla jednego z pinów)
+                
+                // wysłanie HTTP GET request do adresu IP z parametrem "pin" i wartością "p"
+                $.get("http://192.168.4.1:80/", {pin:p}); // wykonanie polecenia
+            });
+        });
+    </script>
+    </body>
+</html>
