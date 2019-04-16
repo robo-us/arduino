@@ -18,6 +18,8 @@ void setup()
 
 void loop()
 {
+  //pętla while służy jako pauza w wykonywaniu programu
+  //doóki nie wciśniemy przycisku nic się nie wykona
   while (!buttonPressed()) {
   }
   forward(100, 1000);
