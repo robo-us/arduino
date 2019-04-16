@@ -1,7 +1,7 @@
-int M2pwmControl = 5; //E1
-int M2directControl = 4; //M1
-int M1pwmControl = 6; //E2
-int M1directControl = 7; //M2
+int E1 = 5; //E1
+int M1 = 4; //M1
+int E2 = 6; //E2
+int M2 = 7; //M2
 int button = 2;
 int redLed = 3;
 int greenLed = 4;
