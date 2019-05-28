@@ -1,10 +1,18 @@
-int E1 = 5; //E1
+/*Ustawienia dla PWM
+ * int E1 = 5; //E1
 int M1 = 4; //M1
 int E2 = 6; //E2
 int M2 = 7; //M2
+*/
+/*Ustawienia dla PLL*/
+int E1 = 4;
+int M1 = 5;
+int E2 = 7;
+int M2 = 6;
+
 int button = 2;
 int redLed = 3;
-int greenLed = 4;
+int greenLed = 8;
 
 void setup()
 {
@@ -18,23 +26,20 @@ void setup()
 
 void loop()
 {
-  //pętla while służy jako pauza w wykonywaniu programu
-  //dopóki nie wciśniemy przycisku nic się nie wykona
   while (!buttonPressed()) {
   }
-  forward(100, 1000);
-  backward(100, 1000);
+  forward(150);
+  delay(2000);
   stopMotors();
 }
 
-void forward(int value, int distance) {
+void forward(int value) {
   digitalWrite(greenLed, HIGH);
   digitalWrite(redLed, LOW);
   digitalWrite(M1, HIGH);
   digitalWrite(M2, HIGH);
   analogWrite(E1, value);
   analogWrite(E2, value);
-  delay(distance);
 }
 
 void backward(int value, int distance) {
@@ -64,6 +69,8 @@ void turnRight(int value, int distance) {
 }
 
 void stopMotors() {
+  digitalWrite(M1, LOW);
+  digitalWrite(M2, LOW);
   analogWrite(E1, 0);
   analogWrite(E2, 0);
   digitalWrite(redLed, LOW);
