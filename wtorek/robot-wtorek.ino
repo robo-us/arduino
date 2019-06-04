@@ -18,6 +18,10 @@ int button = 2;   //pin 2 Arduino połaczony z przyciskiem
 int redLed = 3;   //pin 3 Arduino polaczony z czerwoną diodą LED - jazda do tyłu
 int greenLed = 8; //pin 8 Arduino połączony z zieloną diodą LED - jazda do przodu
 
+int buttonState = LOW;
+long lastDebaunceTime = 0;
+long debaunceDelay = 50;
+
 void setup()
 {
   Serial.begin(9600);
@@ -34,6 +38,7 @@ void setup()
 void loop()
 {
   while (!buttonPressed()) {
+    Serial.println(buttonState);
     Serial.println("przycik nie wcisniety");
   }
   Serial.println("przycisk wcisniety");
@@ -94,11 +99,23 @@ void stopMotors() {
 }
 
 boolean buttonPressed() {
-  if (digitalRead(button) == HIGH) {
-    delay(2000);
-    return true;
-  } else {
-    return false;
+
+  buttonState = digitalRead(button);
+  
+  if ((millis() - lastDebaunceTime) > debaunceDelay) {
+    if (buttonState == HIGH) {
+      lastDebaunceTime = millis();
+      digitalWrite(button, HIGH);
+      buttonState = HIGH;
+      return true;
+    }
+    else if (buttonState == LOW) {
+      lastDebaunceTime = millis();
+      digitalWrite(button, LOW);
+      buttonState = LOW;
+      stopMotors();
+      return false;
+    }
   }
 }
 
